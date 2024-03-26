@@ -2,6 +2,6 @@
 {
     public interface IHazardNotifier
     {
-        void NotifyHazard(string containerNumber);
+        void NotifyHazard(string containerID);
     }
 }

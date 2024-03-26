@@ -2,34 +2,34 @@
 {
     public class RefrigeratedContainer : Container
     {
-        public string ProductType { get; }
-        public double Temperature { get; }
+        public string productType { get; }
+        public double temperature { get; }
 
-        public RefrigeratedContainer(string serialNumber, double cargoMass, double height, double tareWeight, double depth, double maxPayload, string productType, double temperature)
-            : base(serialNumber, cargoMass, height, tareWeight, depth, maxPayload)
+        public RefrigeratedContainer(string containerSerial, double loadWeight, double containerHeight, double containerTareWeight, double containerDepth, double maxLoadCapacity, string productKind, double storageTemperature)
+            : base(containerSerial, loadWeight, containerHeight, containerTareWeight, containerDepth, maxLoadCapacity)
         {
-            ProductType = productType;
-            Temperature = temperature;
+            productType = productKind;
+            temperature = storageTemperature;
         }
 
-        public override void LoadCargo(double cargoMass)
+        public override void LoadCargo(double weight)
         {
-            if (cargoMass > MaxPayload)
+            if (weight > maxPayload)
             {
-                throw new OverfillException("Cargo mass exceeds container's maximum payload.");
+                throw new OverfillException("weight exceeds container capacity");
             }
 
-            if (CargoMass + cargoMass > MaxPayload)
+            if (massOfCargo + weight > maxPayload)
             {
-                throw new DangerousOperationException("Attempting to load cargo beyond capacity.");
+                throw new DangerousOperationException("we cant load because of container capacity");
             }
 
-            CargoMass += cargoMass;
+            massOfCargo += weight;
         }
 
         public override void EmptyCargo()
         {
-            CargoMass = 0;
+            massOfCargo = 0;
         }
     }
 }

@@ -2,38 +2,38 @@
 {
     public class GasContainer : Container, IHazardNotifier
     {
-        private const double EmptyingPercentage = 0.05;
-        public double Pressure { get; }
+        private const double EmptyingRate = 0.05;
+        public double InternalPressure { get; }
 
-        public GasContainer(string serialNumber, double cargoMass, double height, double tareWeight, double depth, double maxPayload, double pressure)
-            : base(serialNumber, cargoMass, height, tareWeight, depth, maxPayload)
+        public GasContainer(string containerSerial, double cargoWeight, double containerHeight, double containerTareWeight, double containerDepth, double maxLoadCapacity, double pressure)
+            : base(containerSerial, cargoWeight, containerHeight, containerTareWeight, containerDepth, maxLoadCapacity)
         {
-            Pressure = pressure;
+            InternalPressure = pressure;
         }
 
-        public override void LoadCargo(double cargoMass)
+        public override void LoadCargo(double loadWeight)
         {
-            if (cargoMass > MaxPayload)
+            if (loadWeight > maxPayload)
             {
-                throw new OverfillException("Cargo mass exceeds container's maximum payload.");
+                throw new OverfillException("The cargo's weight exceeds the container's maximum load capacity.");
             }
 
-            if (CargoMass + cargoMass > MaxPayload)
+            if (massOfCargo + loadWeight > maxPayload)
             {
-                throw new DangerousOperationException("Attempting to load cargo beyond capacity.");
+                throw new DangerousOperationException("Attempting to load cargo beyond the container's capacity.");
             }
 
-            CargoMass += cargoMass;
+            massOfCargo += loadWeight;
         }
 
         public override void EmptyCargo()
         {
-            CargoMass -= CargoMass * EmptyingPercentage;
+            massOfCargo -= massOfCargo * EmptyingRate;
         }
 
-        public void NotifyHazard(string containerNumber)
+        public void NotifyHazard(string containerID)
         {
-            Console.WriteLine($"Hazardous situation detected in container {containerNumber}");
+            Console.WriteLine("Hazardous situation detected in container " + containerID);
         }
     }
 }

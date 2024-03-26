@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\s29076\\source\\repos\\Task2\\Task2\\Task2.csproj",
+      "projectUniqueName": "C:\\Users\\s29076\\Source\\Repos\\projectTrains\\Task2\\Task2.csproj",
       "projectName": "Task2",
-      "projectPath": "C:\\Users\\s29076\\source\\repos\\Task2\\Task2\\Task2.csproj",
+      "projectPath": "C:\\Users\\s29076\\Source\\Repos\\projectTrains\\Task2\\Task2.csproj",
       "packagesPath": "C:\\Users\\s29076\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\s29076\\source\\repos\\Task2\\Task2\\obj\\",
+      "outputPath": "C:\\Users\\s29076\\Source\\Repos\\projectTrains\\Task2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\s29076\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -2,41 +2,41 @@
 {
     public class LiquidContainer : Container, IHazardNotifier
     {
-        private const double HazardousCargoCapacityRatio = 0.5;
-        private const double OrdinaryCargoCapacityRatio = 0.9;
+        private const double HazardousCargoCapacityPercentage = 0.5;
+        private const double OrdinaryCargoCapacityPercentage = 0.9;
         private bool isHazardous;
 
-        public LiquidContainer(string serialNumber, double cargoMass, double height, double tareWeight, double depth, double maxPayload, bool isHazardous)
-            : base(serialNumber, cargoMass, height, tareWeight, depth, maxPayload)
+        public LiquidContainer(string containerSerial, double loadWeight, double containerHeight, double containerTareWeight, double containerDepth, double maxLoadCapacity, bool isHazardous)
+            : base(containerSerial, loadWeight, containerHeight, containerTareWeight, containerDepth, maxLoadCapacity)
         {
             this.isHazardous = isHazardous;
         }
 
-        public override void LoadCargo(double cargoMass)
+        public override void LoadCargo(double loadWeight)
         {
-            if (cargoMass > MaxPayload)
+            if (loadWeight > maxPayload)
             {
-                throw new OverfillException("Cargo mass exceeds container's maximum payload.");
+                throw new OverfillException("The cargo weight exceeds the container maximum load capacity.");
             }
 
-            double maxCapacityRatio = isHazardous ? HazardousCargoCapacityRatio : OrdinaryCargoCapacityRatio;
+            double maxCapacityPercentage = isHazardous ? HazardousCargoCapacityPercentage : OrdinaryCargoCapacityPercentage;
 
-            if (CargoMass + cargoMass > MaxPayload * maxCapacityRatio)
+            if (massOfCargo + loadWeight > maxPayload * maxCapacityPercentage)
             {
-                throw new DangerousOperationException("Attempting to load dangerous cargo beyond capacity.");
+                throw new DangerousOperationException("Attempting to load cargo beyond the container capacity.");
             }
 
-            CargoMass += cargoMass;
+            massOfCargo += loadWeight;
         }
 
         public override void EmptyCargo()
         {
-            CargoMass = 0;
+            massOfCargo = 0;
         }
 
         public void NotifyHazard(string containerNumber)
         {
-            Console.WriteLine($"Hazardous situation detected in container {containerNumber}");
+            Console.WriteLine("Hazardous situation detected in container " + containerNumber);
         }
     }
 }

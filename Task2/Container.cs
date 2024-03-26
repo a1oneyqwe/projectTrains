@@ -1,25 +1,22 @@
-﻿namespace Task2
+﻿public abstract class Container
 {
-    public abstract class Container
+    public string idNumber { get; }
+    public double massOfCargo { get; protected set; }
+    public double height { get; }
+    public double weightOfTare { get; }
+    public double depth { get; }
+    public double maxPayload { get; }
+
+    public Container(string serialNumber, double massOfCargo, double height, double tareWeight, double depth, double maxPayload)
     {
-        public string SerialNumber { get; }
-        public double CargoMass { get; protected set; }
-        public double Height { get; }
-        public double TareWeight { get; }
-        public double Depth { get; }
-        public double MaxPayload { get; }
-
-        public Container(string serialNumber, double cargoMass, double height, double tareWeight, double depth, double maxPayload)
-        {
-            SerialNumber = serialNumber;
-            CargoMass = cargoMass;
-            Height = height;
-            TareWeight = tareWeight;
-            Depth = depth;
-            MaxPayload = maxPayload;
-        }
-
-        public abstract void LoadCargo(double cargoMass);
-        public abstract void EmptyCargo();
+        idNumber = serialNumber;
+        massOfCargo = massOfCargo;
+        height = height;
+        weightOfTare = tareWeight;
+        depth = depth;
+        maxPayload = maxPayload;
     }
+
+    public abstract void LoadCargo(double massOfCargo);
+    public abstract void EmptyCargo();
 }

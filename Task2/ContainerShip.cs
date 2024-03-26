@@ -1,41 +1,72 @@
-﻿namespace Task2
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Task2
 {
     public class ContainerShip
     {
-        public string Name { get; }
-        public double MaxSpeed { get; }
-        public int MaxContainerNum { get; }
-        public double MaxWeight { get; }
-        public List<Container> Containers { get; }
+        public string name { get; }
+        public double maxSpeed { get; }
+        public int maxNumberOfContainers { get; }
+        public double maxWeight { get; }
+        public List<Container> containers { get; }
 
         public ContainerShip(string name, double maxSpeed, int maxContainerNum, double maxWeight)
         {
-            Name = name;
-            MaxSpeed = maxSpeed;
-            MaxContainerNum = maxContainerNum;
-            MaxWeight = maxWeight;
-            Containers = new List<Container>();
+            name = name;
+            maxSpeed = maxSpeed;
+            maxNumberOfContainers = maxContainerNum;
+            maxWeight = maxWeight;
+            containers = new List<Container>();
         }
 
         public void LoadContainer(Container container)
         {
-            if (Containers.Count >= MaxContainerNum)
+            if (containers.Count >= maxNumberOfContainers)
             {
-                throw new Exception("Ship's maximum container capacity reached.");
+                throw new InvalidOperationException("Ship's maximum container capacity reached.");
             }
 
-            double totalWeight = Containers.Sum(c => c.CargoMass + c.TareWeight);
-            if (totalWeight + container.CargoMass + container.TareWeight > MaxWeight)
+            double totalWeight = containers.Sum(c => c.massOfCargo + c.weightOfTare);
+            if (totalWeight + container.massOfCargo + container.weightOfTare > maxWeight)
             {
-                throw new Exception("Ship's maximum weight capacity reached.");
+                throw new InvalidOperationException("Ship's maximum weight capacity reached.");
             }
 
-            Containers.Add(container);
+            containers.Add(container);
         }
 
         public void UnloadContainer(Container container)
         {
-            Containers.Remove(container);
+            containers.Remove(container);
+        }
+        public void ReplaceContainer(string containerNumber, Container newContainer)
+        {
+            var containerToReplace = containers.FirstOrDefault(c => c.idNumber == containerNumber);
+            if (containerToReplace != null)
+            {
+                containers.Remove(containerToReplace);
+                LoadContainer(newContainer);
+            }
+        }
+       
+
+        
+
+        
+
+        public void PrintShipInfo()
+        {
+            Console.WriteLine("Ship Name: " + name);
+            Console.WriteLine("Max Speed: " + maxSpeed);
+            Console.WriteLine("Max Container Capacity: " + maxNumberOfContainers);
+            Console.WriteLine("Max Weight Capacity: " + maxWeight);
+            Console.WriteLine("Containers on the Ship:");
+            foreach (var container in containers)
+            {
+                Console.WriteLine("Container: " + container.idNumber + ", Cargo Mass: " + container.massOfCargo + ", Height: " + container.height + ", Tare Weight: " + container.weightOfTare + ", Depth: " + container.depth);
+            }
         }
     }
 }
